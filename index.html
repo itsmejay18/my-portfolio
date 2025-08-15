@@ -47,38 +47,217 @@
 						</style>
 
 						<article id="intro">
-							<h2 class="major">Intro</h2>
-							<span class="image main">
-								<img src="images/dp.png" alt="" />
-							</span>
-							<p>Full Name: Jay J. Ababon <br> Course & Year: BS Information Technology — 3rd Year</p>
-							<p></p>
-							<p>Bio: <br> I’m a passionate IT student who loves making things work, whether it’s fixing hardware or developing software. While I’m still growing my coding skills, I approach every project with dedication and a commitment to delivering my best. My goal is to keep learning, improving, and creating solutions that are both functional and user-friendly.</p>
-							<p>Goal After Graduation: <br> Become a reliable full-stack developer focused on building user-centered, practical solutions and contributing to impactful tech projects in my community.</p>
-						</article>
+						<h2 class="major">Intro</h2>
+						<span class="image main">
+							<a href="images/fullsize.jfif" target="_blank">
+    <img src="images/dp.png" alt="Thumbnail">
+</a>
+
+						</span>
+
+						<p class="typing-line" data-text="Full Name: Jay J. Ababon<br>Course & Year: BSIT — 3rd Year"></p>
+
+						<p class="typing-line" data-text="Bio:<br>I’m a passionate IT student who loves making things work, whether it’s fixing hardware or developing software. While I’m still growing my coding skills, I approach every project with dedication and a commitment to delivering my best. My goal is to keep learning, improving, and creating solutions that are both functional and user-friendly."></p>
+
+						<p class="typing-line" data-text="Goal After Graduation:<br>Become a reliable full-stack developer focused on building user-centered, practical solutions and contributing to impactful tech projects in my community."></p>
+
+					</article>
+
+
+						<script>
+							const profilePic = document.getElementById('profile-pic');
+							const overlay = document.getElementById('img-overlay');
+							const overlayImg = document.getElementById('overlay-img');
+							const closeBtn = document.getElementById('close-btn');
+
+							profilePic.addEventListener('click', () => {
+								overlay.style.display = 'flex';
+								overlayImg.src = profilePic.src; // use the same image
+							});
+
+							closeBtn.addEventListener('click', () => {
+								overlay.style.display = 'none';
+							});
+
+							// also close if clicking outside the image
+							overlay.addEventListener('click', (e) => {
+								if(e.target === overlay) overlay.style.display = 'none';
+							});
+
+						</script>
+
+
+						<style>
+							/* Overlay background */
+						#img-overlay {
+							position: fixed;
+							top: 0;
+							left: 0;
+							width: 100%;
+							height: 100%;
+							background-color: rgba(0,0,0,0.8);
+							display: flex;
+							justify-content: center;
+							align-items: center;
+							z-index: 999;
+						}
+
+						/* Expanded image */
+						#overlay-img {
+							max-width: 90%;
+							max-height: 90%;
+							box-shadow: 0 0 20px #fff;
+						}
+
+						/* Close button */
+						#close-btn {
+							position: absolute;
+							top: 20px;
+							right: 30px;
+							color: #fff;
+							font-size: 40px;
+							cursor: pointer;
+						}
+
+						</style>
+
+
+						<script>
+						const paragraphs = document.querySelectorAll('.typing-line');
+
+						function startTyping() {
+							// Reset content first
+							paragraphs.forEach(p => p.innerHTML = '');
+
+							let paraIndex = 0;
+
+							function typeParagraph(para) {
+								const lines = para.getAttribute('data-text').split('<br>');
+								para.innerHTML = '';
+								let lineIndex = 0;
+
+								function typeLine() {
+									const lineText = lines[lineIndex].trim();
+									let charIndex = 0;
+									const span = document.createElement('span');
+									para.appendChild(span);
+
+									function typeChar() {
+										if (charIndex < lineText.length) {
+											span.innerHTML += lineText.charAt(charIndex);
+											charIndex++;
+											setTimeout(typeChar, 20); // speed
+										} else {
+											para.appendChild(document.createElement('br'));
+											lineIndex++;
+											if (lineIndex < lines.length) {
+												typeLine();
+											} else {
+												paraIndex++;
+												if (paraIndex < paragraphs.length) {
+													typeParagraph(paragraphs[paraIndex]);
+												}
+											}
+										}
+									}
+
+									typeChar();
+								}
+
+								typeLine();
+							}
+
+							typeParagraph(paragraphs[paraIndex]);
+						}
+						</script>
+
+					<script>
+				document.querySelector('a[href="#intro"]').addEventListener('click', startTyping);
+				
+				</script>
+
+						
+
+
 
 						<!-- Skills -->
 							<article id="skills">
-								<h2 class="major">Skills</h2>
-								
-								<p>
-									I first developed my technical skills during my senior high school days as an ICT student, 
-									where I gained hands-on experience in both hardware and software tasks. 
-									I enjoy fixing and maintaining computers. I have a passion for troubleshooting, 
-									formatting, and installing programs. I also work as a freelancer, offering computer repair 
-									and software installation services to earn extra income while helping others.
-								</p>
+							<h2 class="major">Skills</h2>
 
-								<h3>Technical Skills:</h3>
-								<ul>
-									<li>Hardware Troubleshooting</li>
-									<li>Computer Formatting</li>
-									<li>Software Installation</li>
-									<li>Networking Basics</li>
-									<li>Operating System Configuration</li>
-									<li>Programming</li>
-								</ul>
-							</article>
+							<h3 class="typing-line" data-text="Technical Skills:"></h3>
+
+							<ul class="typing-skill-list">
+								<li data-text="Hardware Troubleshooting"></li>
+								<li data-text="Computer Formatting"></li>
+								<li data-text="Software Installation"></li>
+								<li data-text="Networking Basics"></li>
+								<li data-text="Operating System Configuration"></li>
+								<li data-text="Programming"></li>
+							</ul>
+						</article>
+
+
+
+
+						<script>
+							function typeLineByLine(elements, index = 0) {
+							if (index >= elements.length) return;
+
+							const el = elements[index];
+							const text = el.getAttribute('data-text');
+							el.innerHTML = '';
+							el.style.opacity = 1;
+
+							let charIndex = 0;
+
+							function typeChar() {
+								if (charIndex < text.length) {
+									el.innerHTML += text.charAt(charIndex);
+									charIndex++;
+									setTimeout(typeChar, 20); // adjust speed
+								} else {
+									// after finishing, type next element
+									typeLineByLine(elements, index + 1);
+								}
+							}
+
+							typeChar();
+						}
+
+						document.querySelector('a[href="#skills"]').addEventListener('click', () => {
+							const elements = [
+								document.querySelector('.typing-line'),
+								...document.querySelectorAll('.typing-skill-list li')
+							];
+
+							// reset content & hide bullets
+							elements.forEach(el => {
+								el.innerHTML = '';
+								if (el.tagName === 'LI') el.style.opacity = 0;
+							});
+
+							typeLineByLine(elements);
+						});
+
+						</script>
+
+						<style>
+							.typing-skill-list {
+							padding-left: 20px;
+						}
+
+						.typing-skill-list li {
+							opacity: 0;      /* hide initially */
+							margin-bottom: 5px;
+						}
+
+
+
+						</style>
+
+
+
+
 
 						<!-- About -->
 							<article id="about">
